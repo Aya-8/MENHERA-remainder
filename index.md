@@ -1,4 +1,6 @@
 ---
-title: Welcome to my blog
+title: strong-remind
 ---
+# Please tell me your task!!
+##　To do list を作ろうよ！
 
