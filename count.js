@@ -11,19 +11,17 @@ function startTimer() {
   messageElement.textContent = '';
 
   setTimeout(function() {
-    alert(`${task-list}をやる時間になったよ！`); // ポップアップを表示
-    messageElement.textContent = `${task-list}をやる時間になったよ！`; // タスク名を表示
-    blinkMessage(messageElement);
+    messageElement.textContent = `${taskName}をやる時間になったよ！`; // タスク名を表示
+    blinkMessage();
   }, totalTime);
 }
 
-function blinkMessage(element) {
+function blinkMessage() {
+  const messageElement = document.getElementById('message');
   let isVisible = true;
 
   setInterval(function() {
-    element.style.visibility = isVisible ? 'hidden' : 'visible';
+    messageElement.style.visibility = isVisible ? 'hidden' : 'visible';
     isVisible = !isVisible;
   }, 500);
 }
-
-
