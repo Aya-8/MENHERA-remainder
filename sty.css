@@ -2,6 +2,7 @@
     display: block;
 }
 h2{
+    font-size: 40px;
     padding-left: 15px;
 }
 
@@ -35,9 +36,10 @@ h2{
 }
 
 .list {
-    height: 200px; /* タスクリストの高さを固定 */
-    overflow-y: scroll; /* 垂直方向にスクロールバーを表示 */
+    height: 300px; /* タスクリストの高さを固定 */
+    overflow-y: auto; /* 垂直方向にスクロールバーを表示 */
     border-right: 1px solid #ccc; /* 境界線を追加（任意） */
+    border-left: 1px solid #ccc;
     padding: 10px; /* パディングを追加（任意） */
 }
 
@@ -51,6 +53,7 @@ h2{
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #eee;
+    height: 50px;
 }
 
 .list li:last-child {
@@ -61,8 +64,22 @@ h2{
     margin-right: 10px;
 }
 
+.list li:hover,
+#add-task-button-container:hover{
+    background-color: #f0f0f0;
+}
+
 .task-details {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.task-details .task-name{
+    font-size: 1.2em;
+}
+
+.task-details .task-time{
+    font-size: 0.8em;
 }
 
 .task-actions {
@@ -147,6 +164,12 @@ h2{
     margin: 0;
     padding: 0;
 }
+.menu-button {
+    font-size: 1.5em; /* 三点リーダーのサイズを大きくする */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
 .dropdown-menu {
     position: absolute;
@@ -157,10 +180,12 @@ h2{
     border-radius: 3px;
     padding: 5px;
     display: none;
+    white-space: nowrap;
 }
 
 .dropdown-menu button {
-    display: block;
+    display: inline-block;
+    margin-right: 5px;
     width: 100%;
     text-align: left;
     padding: 5px;
@@ -173,14 +198,18 @@ h2{
 #add-task-button-container {
     text-align: left; /* 左寄せ */
     border-bottom: 1px solid #eee; /* 下線を追加 */
+    height: 50px; /* タスクの高さを統一 */
+    display: flex;
+    align-items: center;
+    padding: 10px;    
 }
 
 #add-task-button {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 8px 15px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1.2em;
     cursor: pointer;
-    border-radius: 5px;
 }
 #add-task-form {
     position: fixed;
