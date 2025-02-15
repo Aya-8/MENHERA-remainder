@@ -1,13 +1,72 @@
-body {
-    background-color: rgb(255, 255, 255);
-    font-family: sans-serif; /* フォントを変更 */
+#task-list-header {
+    display: block;
+}
+h2{
+    padding-left: 15px;
 }
 
-.list{
+.sort {
+    /* 並び替え機能のスタイル */
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.sort-options {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.sort-label {
+    margin-right: 10px;
+}
+
+#sort-select {
+    padding: 10px 25px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    appearance: none; /* デフォルトの矢印を削除 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* カスタム矢印を追加 */
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+}
+
+.list {
     height: 200px; /* タスクリストの高さを固定 */
     overflow-y: scroll; /* 垂直方向にスクロールバーを表示 */
     border-right: 1px solid #ccc; /* 境界線を追加（任意） */
     padding: 10px; /* パディングを追加（任意） */
+}
+
+.list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.list li:last-child {
+    border-bottom: none;
+}
+
+.list li input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.task-details {
+    flex-grow: 1;
+}
+
+.task-actions {
+    position: relative;
 }
 
 .row {
@@ -42,7 +101,6 @@ body {
     border-radius: 16px;
     padding: 20px;
 }
-
 .balloon {
     width: 100%;
     margin-bottom: 20px; /* 吹き出しとフォームの間隔 */
@@ -90,19 +148,40 @@ body {
     padding: 0;
 }
 
-.row input[type="text"],
-.row input[type="date"],
-.row input[type="time"] {
-    padding: 8px;
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
+    border-radius: 3px;
+    padding: 5px;
+    display: none;
 }
 
-.radio-row label {
-    margin-right: 15px;
+.dropdown-menu button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
+/* 追加ボタンのスタイル */
+#add-task-button-container {
+    text-align: left; /* 左寄せ */
+    border-bottom: 1px solid #eee; /* 下線を追加 */
+}
+
+#add-task-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
 #add-task-form {
     position: fixed;
     top: 0;
@@ -113,6 +192,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
     z-index: 1000; /* 他の要素よりも前面に表示 */
 }
 
