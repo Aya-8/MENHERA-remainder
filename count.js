@@ -12,16 +12,16 @@ function startTimer() {
 
   setTimeout(function() {
     messageElement.textContent = `${taskName}をやる時間になったよ！`; // タスク名を表示
-    blinkMessage();
+    blinkMessage(messageElement);
   }, totalTime);
 }
 
-function blinkMessage() {
-  const messageElement = document.getElementById('message');
+function blinkMessage(element) {
   let isVisible = true;
 
   setInterval(function() {
-    messageElement.style.visibility = isVisible ? 'hidden' : 'visible';
+    element.style.visibility = isVisible ? 'hidden' : 'visible';
     isVisible = !isVisible;
   }, 500);
 }
+
