@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO入力フォーム</title>
+    <link rel="stylesheet" href="sty.css" type="text/css">
+</head>
+<body>
+    <div id="task-list-header">
+        <h2>現在のタスク</h2>
+        <div class="sort">
+            <div class="sort-options">
+                <span class="sort-label">並び替え:</span>
+                <select id="sort-select">
+                    <option value="due">締め切り順</option>
+                    <option value="priority">優先度順</option>
+                </select>
+            </div>
+        </div>
+        <div id="add-task-button-container">
+            <button id="add-task-button">＋ 新規タスク</button>
+          </div>
+          <ul class="list">
+          </ul>
+
+
+          <div id="confirmation-dialog" style="display: none;">
+            <p>タスク「<span id="confirmation-task-name"></span>」は完了しましたか？</p>
+            <button id="complete-button">はい</button>
+            <button id="incomplete-button">いいえ</button> </div>
+
+
+
+    </div>
+    <div class="balloon">
+        <div class="faceicon">
+            <img src="kari-girl.jpg" alt="sample">
+        </div>
+        <div class="chatting">
+            <div class="says">
+                <p>”絶対”やってくれるよね？</p>
+            </div>
+        </div>
+    </div>
+    <div id="add-task-form" style="display: none;">
+        <form id="task-form">
+            <div class="all">
+                <div class="row">
+                    <label for="name">TODO:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="row radio-row">
+                    <label>重要度:</label>
+                    <label for="priority-high"><input type="radio" id="priority-high" name="priority" value="high" required> 絶対</label>
+                    <label for="priority-medium"><input type="radio" id="priority-medium" name="priority" value="medium"> やるべき</label>
+                    <label for="priority-low"><input type="radio" id="priority-low" name="priority" value="low"> やりたい</label>
+                </div>
+                <div class="row">
+                    <label>所要時間:</label>
+                    <input type="number" id="hours" name="hours" min="0" placeholder="時間">
+                    <label>時間</label>
+                    <input type="number" id="minutes" name="minutes" min="0" max="59" placeholder="分">
+                    <label>分</label>
+                    <input type="number" id="seconds" name="seconds" min="0" max="59" placeholder="秒">
+                    <label>秒</label>
+                </div>
+                <div class="submit-container">
+                    <input type="submit" value="決定">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="message"></div>
+    <script src="script-2.js"></script>
+    <script src="count-2.js"></script>
+</body>
+</html>
