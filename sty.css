@@ -3,6 +3,12 @@ body {
     font-family: sans-serif; /* フォントを変更 */
 }
 
+.list{
+    height: 200px; /* タスクリストの高さを固定 */
+    overflow-y: scroll; /* 垂直方向にスクロールバーを表示 */
+    border-right: 1px solid #ccc; /* 境界線を追加（任意） */
+    padding: 10px; /* パディングを追加（任意） */
+}
 
 .row {
     display: flex;
@@ -98,7 +104,22 @@ body {
 }
 
 #add-task-form {
-    margin-top: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 他の要素よりも前面に表示 */
+}
+
+#add-task-form .all {
+    background-color: white; /* フォームの背景色 */
+    padding: 20px;
+    border-radius: 5px;
 }
 
 /* レスポンシブ対応 */
