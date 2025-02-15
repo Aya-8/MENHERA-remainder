@@ -23,11 +23,10 @@ taskForm.addEventListener('submit', (event) => {
     addTaskForm.style.display = 'none';
     taskForm.reset();
 
-    // 時間と分と秒を引数として渡す
-    startTimer(taskName, hours, minutes, seconds, newTask);
+    startTimer(taskName, hours, minutes, seconds, newTask); // newTask を渡す
 });
 
-function startTimer(taskName, hours, minutes, seconds, taskElement) {
+function startTimer(taskName, hours, minutes, seconds, taskElement) { // taskElement を追加
     let totalSeconds = hours * 3600 + minutes * 60 + seconds * 1;
     let remainingSeconds = totalSeconds;
 
@@ -45,7 +44,7 @@ function startTimer(taskName, hours, minutes, seconds, taskElement) {
 
         if (remainingSeconds < 0) {
             clearInterval(timerInterval);
-            taskElement.textContent = `${taskName} (終了)`;
+            taskElement.textContent = `${taskName} (は終わった？)`;
             return;
         }
 
