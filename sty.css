@@ -1,0 +1,27 @@
+body{
+    background-color: rgb(249, 249, 255);
+}
+.row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+
+}
+.all{
+    width: 500px;
+    display: center;
+    background-color: rgb(213, 220, 234);
+    border-radius: 16px;
+    padding: 10px;
+
+}
+
+.row label {
+    margin-right: 10px;
+}
+
+.row input[type="radio"] {
+    margin-right: 5px;
+
+}
