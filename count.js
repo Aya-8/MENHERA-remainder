@@ -1,22 +1,52 @@
-// 時間と分と秒を引数として受け取る
-function startTimer(taskName, hours, minutes, seconds) {
-    const totalTime = (parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds)) * 1000;
+function startTimer(taskName, hours, minutes, seconds, taskElement) {
+    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    let remainingSeconds = totalSeconds;
+    let alertCount = 0;
 
-    const messageElement = document.getElementById('message');
-    messageElement.textContent = '';
+    const updateDisplay = () => {
+        const displayHours = Math.floor(remainingSeconds / 3600);
+        const displayMinutes = Math.floor((remainingSeconds % 3600) / 60);
+        const displaySeconds = remainingSeconds % 60;
+        taskElement.textContent = `${taskName} (${displayHours}時間${displayMinutes}分${displaySeconds}秒)`;
+    };
 
-    setTimeout(function() {
-        alert(`時間だよ！${taskName}終わったよね？`);
-        blinkMessage();
-    }, totalTime);
+    updateDisplay();
+
+    const timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateDisplay();
+
+        if (remainingSeconds < 0) {
+            clearInterval(timerInterval);
+            taskElement.textContent = `${taskName} (終了)`;
+
+            const showAlert = () => {
+                if (alertCount < 3) {
+                    alert(`時間だよ！${taskName}終わったよね？`);
+                    blinkMessage();
+                    alertCount++;
+                    showConfirm(taskName, taskElement);
+                }
+            };
+            showAlert();
+            return;
+        }
+    }, 1000);
+
+    taskElement.timerInterval = timerInterval;
 }
 
 function blinkMessage() {
     const messageElement = document.getElementById('message');
     let isVisible = true;
 
-    setInterval(function() {
+    const blinkInterval = setInterval(function () {
         messageElement.style.visibility = isVisible ? 'hidden' : 'visible';
         isVisible = !isVisible;
     }, 500);
+
+    setTimeout(() => {
+        clearInterval(blinkInterval);
+        messageElement.style.visibility = 'visible';
+    }, 5000);
 }
