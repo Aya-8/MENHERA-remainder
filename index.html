@@ -1,26 +1,29 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-	<meta charset="UTF-8">
-	<title>メンヘラリマインダー</title>
-	<style>
-		/* CSSを書くところ */
-		h1 {
-			color: blue;
-		}
-	</style>
-	<form action="//www-creators.com/rsc/receiver.php" method="post">
-		<label>To-Doリストに追加したいものを入力してください</label><br>
-		<input type="text" name="first-name" maxlength="20" value="" placeholder="20文字以内で入力">
-	</form>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do リスト</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    /* 基本的なスタイル */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- 実際に表示される領域 -->
-	<script>
-		// JavaScriptを書くところ
-		console.log("Hello JavaScript");
-	</script>
-</body>
+  <h1>To-Do リスト</h1>
+  <input type="text" id="taskInput" placeholder="新しいタスクを入力">
+  <button onclick="addTask()">タスク追加</button>
 
+  <ul id="taskList"></ul>
+
+  <script src="app.js"></script>
+</body>
 </html>
