@@ -23,5 +23,6 @@ taskForm.addEventListener('submit', (event) => {
     addTaskForm.style.display = 'none';
     taskForm.reset();
 
-    startTimer(); // タイマーを開始
+    // 時間と分と秒を引数として渡す
+    startTimer(taskName, hours, minutes, seconds);
 });
