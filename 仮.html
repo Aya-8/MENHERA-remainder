@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本的なフォーム</title>
+</head>
+<body>
+    <form action="submit.php" method="post">
+        <label for="name">TODO:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+       
+        <label for="limit">重要度:</label>
+<select id="imp" name="imp">
+    <option value="impr">絶対</option>
+    <option value="haveto">やるべき</option>
+    <option value="watn">やりたい</option>
+</select><br><br>
+        <label for="country">回数:</label>
+<select id="country" name="country">
+    <option value="onee">一回</option>
+    <option value="us">繰り返し</option>
+</select><br><br>
+<label for="limit">期限:</label>
+<select id="limit" name="limit">
+    <option value="today">今日</option>
+    <option value="tomorrow">明日</option>
+    <option value="anytime">いつか</option>
+</select><br><br>
+
+<input type="submit" value="送信">
+    </form>
+
+</body>
+</html>
