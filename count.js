@@ -11,7 +11,8 @@ function startTimer() {
   messageElement.textContent = '';
 
   setTimeout(function() {
-    messageElement.textContent = `${taskName}をやる時間になったよ！`; // タスク名を表示
+    alert(`${task-list}をやる時間になったよ！`); // ポップアップを表示
+    messageElement.textContent = `${task-list}をやる時間になったよ！`; // タスク名を表示
     blinkMessage(messageElement);
   }, totalTime);
 }
@@ -24,4 +25,5 @@ function blinkMessage(element) {
     isVisible = !isVisible;
   }, 500);
 }
+
 
