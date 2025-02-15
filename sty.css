@@ -1,20 +1,12 @@
-body{
-    background-color: rgb(249, 249, 255);
+body {
+    background-color: rgb(255, 245, 245);
+    font-family: sans-serif; /* フォントを変更 */
 }
+
 .row {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-
-
-}
-.all{
-    width: 500px;
-    display: center;
-    background-color: rgb(213, 220, 234);
-    border-radius: 16px;
-    padding: 10px;
-
 }
 
 .row label {
@@ -23,5 +15,85 @@ body{
 
 .row input[type="radio"] {
     margin-right: 5px;
+}
 
+.all {
+    margin: 20px auto; /* 中央配置と上下マージン */
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(222, 187, 187);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.balloon {
+    width: 100%;
+    margin-bottom: 20px; /* 吹き出しとフォームの間隔 */
+    overflow: hidden;
+}
+
+.balloon .faceicon {
+    float: left;
+    margin-right: -90px;
+    width: 80px;
+}
+
+.balloon .faceicon img {
+    width: 100%;
+    height: auto;
+    border: solid 3px rgb(222, 187, 187);
+    border-radius: 50%;
+}
+
+.balloon .chatting {
+    width: 100%;
+}
+
+.says {
+    display: inline-block;
+    position: relative;
+    margin: 5px 0 0 105px;
+    padding: 17px 13px;
+    border-radius: 12px;
+    background: rgb(222, 187, 187);
+}
+
+.says:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 18px;
+    left: -24px;
+    border: 12px solid transparent;
+    border-right: 12px solid rgb(222, 187, 187);
+}
+
+.says p {
+    margin: 0;
+    padding: 0;
+}
+
+.row input[type="text"],
+.row input[type="date"],
+.row input[type="time"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.radio-row label {
+    margin-right: 15px;
+}
+
+#add-task-form {
+    margin-top: 20px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    .all {
+        width: 90%;
+    }
 }
