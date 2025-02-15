@@ -2,6 +2,7 @@ const addTaskButton = document.getElementById('add-task-button');
 const addTaskForm = document.getElementById('add-task-form');
 const taskForm = document.getElementById('task-form');
 const taskList = document.getElementById('task-list').querySelector('ul');
+const messageArea = document.getElementById('message'); // メッセージ表示エリア
 
 addTaskButton.addEventListener('click', () => {
     addTaskForm.style.display = 'block';
@@ -23,10 +24,34 @@ taskForm.addEventListener('submit', (event) => {
     addTaskForm.style.display = 'none';
     taskForm.reset();
 
-    startTimer(taskName, hours, minutes, seconds, newTask); // newTask を渡す
+    startTimer(taskName, hours, minutes, seconds, newTask);
+
+    // 確認コンファームを表示
+    showConfirm(taskName, newTask); // newTaskを渡す
 });
 
-function startTimer(taskName, hours, minutes, seconds, taskElement) { // taskElement を追加
+let confirmCount = 0;
+
+function showConfirm(taskName, taskElement) { // taskElementを受け取る
+    const isYes = confirm(`${taskName}は本当に完了したの？`);
+
+    if (isYes) {
+        confirmCount++;
+        if (confirmCount < 3) {
+            showConfirm(taskName, taskElement); // taskElementを渡す
+        } else {
+            confirmCount = 0;
+            messageArea.textContent = `${taskName}やっと完了したんだね！`;
+            taskElement.textContent = `${taskName} (終了)`; // タイマーを停止
+        }
+    } else {
+        messageArea.textContent = `${taskName}頑張って！`;
+        confirmCount = 0;
+    }
+}
+
+
+function startTimer(taskName, hours, minutes, seconds, taskElement) {
     let totalSeconds = hours * 3600 + minutes * 60 + seconds * 1;
     let remainingSeconds = totalSeconds;
 
@@ -45,9 +70,13 @@ function startTimer(taskName, hours, minutes, seconds, taskElement) { // taskEle
         if (remainingSeconds < 0) {
             clearInterval(timerInterval);
             taskElement.textContent = `${taskName} (終了)`;
+            showConfirm(taskName, taskElement); // タイマー終了時に確認コンファームを表示
             return;
         }
 
         updateDisplay();
     }, 1000);
+
+    // タイマー終了時にclearInterval()を呼び出すために、timerIntervalをtaskElementに保存
+    taskElement.timerInterval = timerInterval;
 }
