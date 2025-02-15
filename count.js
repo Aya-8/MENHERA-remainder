@@ -1,5 +1,5 @@
 function startTimer() {
-  const time = document.getElementById('timeInput').value;
+  const time = document.getElementById('time').value;
   const messageElement = document.getElementById('message');
   messageElement.textContent = '';
   
