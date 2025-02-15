@@ -17,6 +17,15 @@ body {
     margin-right: 5px;
 }
 
+.row input[type="number"] {
+    width: 60px; /* 入力欄の幅を調整 */
+    margin-right: 5px; /* 入力欄の間隔を調整 */
+}
+
+.submit-container{
+    text-align: center;
+}
+
 .all {
     margin: 20px auto; /* 中央配置と上下マージン */
     width: 500px;
