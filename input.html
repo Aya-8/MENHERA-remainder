@@ -9,15 +9,11 @@
     <div id="task-list">
         <h2>現在のタスク</h2>
         <ul>
-            <li>タスク1</li>
-            <li>タスク2</li>
-            <li>タスク3</li>
-        </ul>
+            </ul>
     </div>
     <button id="add-task-button">タスクを追加</button>
     <div id="add-task-form" style="display: none;">
         <form id="task-form">
-
             <div class="all">
                 <div class="row">
                     <label for="name">TODO:</label>
@@ -29,22 +25,21 @@
                     <label for="priority-medium"><input type="radio" id="priority-medium" name="priority" value="medium"> やるべき</label>
                     <label for="priority-low"><input type="radio" id="priority-low" name="priority" value="low"> やりたい</label>
                 </div>
-                <div class="row date-time-row">
-                    <div>
-                        <label for="date">年月日:</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                    <div>
-                        <label for="time">時間 (任意):</label>
-                        <input type="time" id="time" name="time">
-                    </div>
+                <div class="row">
+                    <label>所要時間:</label>
+                    <input type="number" id="hours" name="hours" min="0" placeholder="時間">
+                    <label>時間</label>
+                    <input type="number" id="minutes" name="minutes" min="0" max="59" placeholder="分">
+                    <label>分</label>
+                    <input type="number" id="seconds" name="seconds" min="0" max="59" placeholder="秒">
+                    <label>秒</label>
                 </div>
                 <div class="row radio-row">
                     <label>繰り返し:</label>
                     <label for="repetition-once"><input type="radio" id="repetition-once" name="repetition" value="once" required> 一回</label>
                     <label for="repetition-multiple"><input type="radio" id="repetition-multiple" name="repetition" value="multiple"> 繰り返し</label>
                 </div>
-                <div class="row">
+                <div class="submit-container">
                     <input type="submit" value="送信">
                 </div>
             </div>
@@ -60,6 +55,8 @@
             </div>
         </div>
     </div>
+    <div id="message"></div>
     <script src="script.js"></script>
+    <script src="count.js"></script>
 </body>
 </html>
