@@ -25,7 +25,7 @@ function startTimer(taskName, hours, minutes, seconds, taskElement) {
                     alert(`時間だよ！${taskName}終わったよね？`);
                     blinkMessage();
                     alertCount++;
-                    showConfirm(taskName, taskElement);
+                    showConfirm(taskName, taskElement.parentElement);
                 }
             };
             showAlert();
@@ -49,4 +49,12 @@ function blinkMessage() {
         clearInterval(blinkInterval);
         messageElement.style.visibility = 'visible';
     }, 5000);
+}
+
+function showConfirm(taskName, taskElement) {
+    if (confirm(`タスク「${taskName}」を削除しますか？`)) {
+        if(taskElement){
+        taskElement.remove();
+        }
+    }
 }
