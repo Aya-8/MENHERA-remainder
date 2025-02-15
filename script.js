@@ -44,7 +44,7 @@ function startTimer(taskName, hours, minutes, seconds, taskElement) { // taskEle
 
         if (remainingSeconds < 0) {
             clearInterval(timerInterval);
-            taskElement.textContent = `${taskName} (終了)`;
+            taskElement.textContent = `${taskName} (は終わった？)`;
             return;
         }
 
