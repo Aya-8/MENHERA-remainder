@@ -1,29 +1,62 @@
 <!DOCTYPE html>
-<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-Do リスト</title>
-  <link rel="manifest" href="manifest.json">
-  <style>
-    /* 基本的なスタイル */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO入力フォーム</title>
+    <link rel="stylesheet" href="sty.css" type="text/css">
 </head>
 <body>
-  <h1>To-Do リスト</h1>
-  <input type="text" id="taskInput" placeholder="新しいタスクを入力">
-  <button onclick="addTask()">タスク追加</button>
-
-  <ul id="taskList"></ul>
-
-  <script src="app.js"></script>
+    <div id="task-list">
+        <h2>現在のタスク</h2>
+        <ul>
+            </ul>
+    </div>
+    <button id="add-task-button">タスクを追加</button>
+    <div id="add-task-form" style="display: none;">
+        <form id="task-form">
+            <div class="all">
+                <div class="row">
+                    <label for="name">TODO:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="row radio-row">
+                    <label>重要度:</label>
+                    <label for="priority-high"><input type="radio" id="priority-high" name="priority" value="high" required> 絶対</label>
+                    <label for="priority-medium"><input type="radio" id="priority-medium" name="priority" value="medium"> やるべき</label>
+                    <label for="priority-low"><input type="radio" id="priority-low" name="priority" value="low"> やりたい</label>
+                </div>
+                <div class="row">
+                    <label>所要時間:</label>
+                    <input type="number" id="hours" name="hours" min="0" placeholder="時間">
+                    <label>時間</label>
+                    <input type="number" id="minutes" name="minutes" min="0" max="59" placeholder="分">
+                    <label>分</label>
+                    <input type="number" id="seconds" name="seconds" min="0" max="59" placeholder="秒">
+                    <label>秒</label>
+                </div>
+                <div class="row radio-row">
+                    <label>繰り返し:</label>
+                    <label for="repetition-once"><input type="radio" id="repetition-once" name="repetition" value="once" required> 一回</label>
+                    <label for="repetition-multiple"><input type="radio" id="repetition-multiple" name="repetition" value="multiple"> 繰り返し</label>
+                </div>
+                <div class="submit-container">
+                    <input type="submit" value="送信">
+                </div>
+            </div>
+        </form>
+        <div class="balloon">
+            <div class="faceicon">
+                <img src="kari-girl.jpg" alt="sample">
+            </div>
+            <div class="chatting">
+                <div class="says">
+                    <p>”絶対”やってくれるよね？</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="message"></div>
+    <script src="script.js"></script>
+    <script src="count.js"></script>
 </body>
 </html>
