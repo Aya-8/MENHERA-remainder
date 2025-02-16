@@ -17,7 +17,7 @@ taskForm.addEventListener('submit', (event) => {
     const minutes = parseInt(document.getElementById('minutes').value) || 0;
     const seconds = parseInt(document.getElementById('seconds').value) || 0;
     const priority = document.querySelector('input[name="priority"]:checked') ? document.querySelector('input[name="priority"]:checked').value : 'medium';
-    const duration = `<span class="math-inline">\{hours\}時間</span>{minutes}分${seconds}秒`;
+    const duration = `${hours}時間${minutes}分${seconds}秒`;
 
     const newTask = document.createElement('li');
     newTask.innerHTML = `
@@ -36,13 +36,12 @@ taskForm.addEventListener('submit', (event) => {
             </div>
         </div>
     `;
-    
     taskList.appendChild(newTask);
 
     addTaskForm.style.display = 'none';
     taskForm.reset();
 
-    startTimer(taskName, hours, minutes, seconds, newTask.querySelector('.task-container'), priority); // priorityを渡す
+    startTimer(taskName, hours, minutes, seconds, newTask.querySelector('.task-container'), priority);
     sortTasks();
 });
 
@@ -51,7 +50,8 @@ taskList.addEventListener('click', (event) => {
     const taskContainer = target.closest('.task-container');
 
     if (target.classList.contains('menu-button')) {
-        taskContainer.querySelector('.dropdown-menu').style.display = 'block';
+        const dropdownMenu = taskContainer.querySelector('.dropdown-menu');
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block'; // 表示/非表示を切り替え
     } else if (target.classList.contains('edit-button')) {
         if (taskContainer) {
             const taskName = taskContainer.querySelector('.task-name').textContent;
@@ -112,20 +112,20 @@ function getTimeInSeconds(details) {
     return Infinity;
 }
 
-function startTimer(taskName, hours, minutes, seconds, taskContainer, priority) { // priorityを引数として受け取る
+function startTimer(taskName, hours, minutes, seconds, taskContainer, priority) {
     const totalTime = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
     const messageElement = document.getElementById('message');
     messageElement.textContent = '';
 
-    let alertCount = 0; // alertCountを初期化
+    let alertCount = 0;
 
     const showAlert = () => {
         if (alertCount < 3) {
             alert(`時間だよ！${taskName}終わったよね？`);
             blinkMessage();
             alertCount++;
-            showConfirm(taskName, taskContainer, taskContainer.parentElement); // taskContainerを渡す
+            showConfirm(taskName, taskContainer, taskContainer.parentElement);
         }
     };
 
