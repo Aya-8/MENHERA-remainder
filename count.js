@@ -1,4 +1,4 @@
-function startTimer(taskName, hours, minutes, seconds, taskElement) {
+function startTimer(taskName, hours, minutes, seconds, taskElement, priority) { // priorityを引数として受け取る
     let totalSeconds = hours * 3600 + minutes * 60 + seconds;
     let remainingSeconds = totalSeconds;
     let alertCount = 0;
@@ -7,7 +7,7 @@ function startTimer(taskName, hours, minutes, seconds, taskElement) {
         const displayHours = Math.floor(remainingSeconds / 3600);
         const displayMinutes = Math.floor((remainingSeconds % 3600) / 60);
         const displaySeconds = remainingSeconds % 60;
-        taskElement.textContent = `${taskName} (${displayHours}時間${displayMinutes}分${displaySeconds}秒)`;
+        taskElement.querySelector('.task-time').textContent = `${displayHours}時間${displayMinutes}分${displaySeconds}秒 - 重要度: ${priority}`; // 優先度を表示
     };
 
     updateDisplay();
@@ -18,14 +18,14 @@ function startTimer(taskName, hours, minutes, seconds, taskElement) {
 
         if (remainingSeconds < 0) {
             clearInterval(timerInterval);
-            taskElement.textContent = `${taskName} (終了)`;
+            taskElement.querySelector('.task-time').textContent = `終了 - 重要度: ${priority}`; // 優先度を表示
 
             const showAlert = () => {
                 if (alertCount < 3) {
                     alert(`時間だよ！${taskName}終わったよね？`);
                     blinkMessage();
                     alertCount++;
-                    showConfirm(taskName, taskElement.parentElement);
+                    showConfirm(taskName, taskElement.parentElement, taskElement.parentElement.parentElement); // li要素を渡す
                 }
             };
             showAlert();
@@ -51,10 +51,10 @@ function blinkMessage() {
     }, 5000);
 }
 
-function showConfirm(taskName, taskElement) {
+function showConfirm(taskName, taskElement, liElement) {
     if (confirm(`タスク「${taskName}」を削除しますか？`)) {
-        if(taskElement){
-        taskElement.remove();
+        if (taskElement) {
+            taskElement.remove();
         }
     }
 }
