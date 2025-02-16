@@ -1,8 +1,9 @@
 const addTaskButton = document.getElementById('add-task-button');
 const addTaskForm = document.getElementById('add-task-form');
 const taskForm = document.getElementById('task-form');
-const taskList = document.getElementById('task-list-header').querySelector('.list ul'); // タスクリストの要素を修正
-const sortSelect = document.getElementById('sort-select');
+const taskList = document.getElementById('task-list-header').querySelector('.list ul');
+const sortPriorityButton = document.getElementById('sort-priority-button');
+const sortDueButton = document.getElementById('sort-due-button');
 
 addTaskButton.addEventListener('click', () => {
     addTaskForm.style.display = 'block';
@@ -16,90 +17,120 @@ taskForm.addEventListener('submit', (event) => {
     const minutes = parseInt(document.getElementById('minutes').value) || 0;
     const seconds = parseInt(document.getElementById('seconds').value) || 0;
     const priority = document.querySelector('input[name="priority"]:checked') ? document.querySelector('input[name="priority"]:checked').value : 'medium';
-    const duration = `${hours}時間${minutes}分${seconds}秒`;
+    const duration = `<span class="math-inline">\{hours\}時間</span>{minutes}分${seconds}秒`;
 
     const newTask = document.createElement('li');
     newTask.innerHTML = `
-        <input type="checkbox">
-        <div class="task-details">
-            ${taskName} (${duration}) - 重要度: ${priority}
-        </div>
-        <div class="task-actions">
-            <button class="menu-button">...</button>
-            <div class="dropdown-menu">
-                <button class="edit-button">編集</button>
-                <button class="delete-button">削除</button>
+        <div class="task-container">
+            <input type="checkbox">
+            <div class="task-details">
+                <span class="task-name">${taskName}</span>
+                <span class="task-time">${duration} - 重要度: ${priority}</span>
+            </div>
+            <div class="task-actions">
+                <button class="menu-button">...</button>
+                <div class="dropdown-menu">
+                    <button class="edit-button">編集</button>
+                    <button class="delete-button">削除</button>
+                </div>
             </div>
         </div>
     `;
+    
     taskList.appendChild(newTask);
 
     addTaskForm.style.display = 'none';
     taskForm.reset();
 
-    startTimer(taskName, hours, minutes, seconds, newTask); // newTaskを引数として渡す
-    sortTasks(); // タスクを追加後にソート
+    startTimer(taskName, hours, minutes, seconds, newTask.querySelector('.task-container'), priority); // priorityを渡す
+    sortTasks();
 });
 
 taskList.addEventListener('click', (event) => {
     const target = event.target;
-    const listItem = target.closest('li');
+    const taskContainer = target.closest('.task-container');
 
     if (target.classList.contains('menu-button')) {
-        listItem.querySelector('.dropdown-menu').style.display = 'block';
+        taskContainer.querySelector('.dropdown-menu').style.display = 'block';
     } else if (target.classList.contains('edit-button')) {
-        if (listItem) {
-            const taskDetails = listItem.querySelector('.task-details');
-            if (taskDetails) {
-                const taskText = taskDetails.textContent.split(' (')[0];
-                const editedTask = prompt('タスクを編集:', taskText);
-                if (editedTask) {
-                    taskDetails.textContent = `${editedTask} (${taskDetails.textContent.split('(')[1]}`;
-                }
+        if (taskContainer) {
+            const taskName = taskContainer.querySelector('.task-name').textContent;
+            const editedTask = prompt('タスクを編集:', taskName);
+            if (editedTask) {
+                taskContainer.querySelector('.task-name').textContent = editedTask;
             }
         }
     } else if (target.classList.contains('delete-button')) {
-        if (listItem) {
-            listItem.remove();
+        if (taskContainer) {
+            taskContainer.parentElement.remove();
         }
     } else if (target.type === 'checkbox') {
-        if (target.checked) {
-            listItem.remove();
+        if (taskContainer) {
+            taskContainer.parentElement.remove();
         }
     }
 });
 
-sortSelect.addEventListener('change', () => {
-    sortTasks();
+sortPriorityButton.addEventListener('click', () => {
+    sortTasks('priority');
 });
 
-function sortTasks() {
-    const sortValue = sortSelect.value;
+sortDueButton.addEventListener('click', () => {
+    sortTasks('due');
+});
+
+function sortTasks(sortBy) {
     const tasks = Array.from(taskList.querySelectorAll('li:not(#add-task-button-container)'));
 
     tasks.sort((a, b) => {
-        if (sortValue === 'priority') {
-            const priorityA = a.querySelector('.task-details').textContent.includes('絶対') ? 3 : a.querySelector('.task-details').textContent.includes('やるべき') ? 2 : 1;
-            const priorityB = b.querySelector('.task-details').textContent.includes('絶対') ? 3 : b.querySelector('.task-details').textContent.includes('やるべき') ? 2 : 1;
+        const aDetails = a.querySelector('.task-details').textContent;
+        const bDetails = b.querySelector('.task-details').textContent;
+
+        if (sortBy === 'priority') {
+            const priorityA = aDetails.includes('絶対') ? 3 : aDetails.includes('やるべき') ? 2 : 1;
+            const priorityB = bDetails.includes('絶対') ? 3 : bDetails.includes('やるべき') ? 2 : 1;
             return priorityB - priorityA;
-        } else {
-            // 締め切り順のソートは未実装
-            return 0;
+        } else if (sortBy === 'due') {
+            const timeA = getTimeInSeconds(aDetails);
+            const timeB = getTimeInSeconds(bDetails);
+            return timeA - timeB;
         }
+        return 0;
     });
 
     tasks.forEach(task => taskList.appendChild(task));
 }
 
-function startTimer(taskName, hours, minutes, seconds, newTask) { //newTaskを受け取る
+function getTimeInSeconds(details) {
+    const timeMatch = details.match(/(\d+)時間(\d+)分(\d+)秒/);
+    if (timeMatch) {
+        const hours = parseInt(timeMatch[1]) || 0;
+        const minutes = parseInt(timeMatch[2]) || 0;
+        const seconds = parseInt(timeMatch[3]) || 0;
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+    return Infinity;
+}
+
+function startTimer(taskName, hours, minutes, seconds, taskContainer, priority) { // priorityを引数として受け取る
     const totalTime = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
     const messageElement = document.getElementById('message');
     messageElement.textContent = '';
 
+    let alertCount = 0; // alertCountを初期化
+
+    const showAlert = () => {
+        if (alertCount < 3) {
+            alert(`時間だよ！${taskName}終わったよね？`);
+            blinkMessage();
+            alertCount++;
+            showConfirm(taskName, taskContainer, taskContainer.parentElement); // taskContainerを渡す
+        }
+    };
+
     setTimeout(function() {
-        alert(`時間だよ！ ${taskName} 終わったよね？`);
-        blinkMessage();
+        showAlert();
     }, totalTime);
 }
 
