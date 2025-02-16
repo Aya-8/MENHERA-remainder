@@ -50,8 +50,7 @@ taskList.addEventListener('click', (event) => {
     const taskContainer = target.closest('.task-container');
 
     if (target.classList.contains('menu-button')) {
-        const dropdownMenu = taskContainer.querySelector('.dropdown-menu');
-        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block'; // 表示/非表示を切り替え
+        taskContainer.querySelector('.dropdown-menu').style.display = 'block';
     } else if (target.classList.contains('edit-button')) {
         if (taskContainer) {
             const taskName = taskContainer.querySelector('.task-name').textContent;
@@ -62,10 +61,12 @@ taskList.addEventListener('click', (event) => {
         }
     } else if (target.classList.contains('delete-button')) {
         if (taskContainer) {
+            clearInterval(taskContainer.timerInterval);
             taskContainer.parentElement.remove();
         }
     } else if (target.type === 'checkbox') {
         if (taskContainer) {
+            clearInterval(taskContainer.timerInterval);
             taskContainer.parentElement.remove();
         }
     }
@@ -87,8 +88,8 @@ function sortTasks(sortBy) {
         const bDetails = b.querySelector('.task-details').textContent;
 
         if (sortBy === 'priority') {
-            const priorityA = aDetails.includes('絶対') ? 3 : aDetails.includes('やるべき') ? 2 : 1;
-            const priorityB = bDetails.includes('絶対') ? 3 : bDetails.includes('やるべき') ? 2 : 1;
+            const priorityA = getPriorityValue(aDetails);
+            const priorityB = getPriorityValue(bDetails);
             return priorityB - priorityA;
         } else if (sortBy === 'due') {
             const timeA = getTimeInSeconds(aDetails);
@@ -99,6 +100,13 @@ function sortTasks(sortBy) {
     });
 
     tasks.forEach(task => taskList.appendChild(task));
+}
+
+function getPriorityValue(details) {
+    if (details.includes('high')) return 3;
+    if (details.includes('medium')) return 2;
+    if (details.includes('low')) return 1;
+    return 0;
 }
 
 function getTimeInSeconds(details) {
