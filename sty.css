@@ -66,7 +66,7 @@ h2{
 
 .list li:hover,
 #add-task-button-container:hover{
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
 }
 
 .task-details {
@@ -84,6 +84,24 @@ h2{
 
 .task-actions {
     position: relative;
+    margin-left: auto;
+}
+
+.task-container {
+    display: flex;
+    align-items: center;
+}
+
+.task-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.task-container .task-details {
+    flex-grow: 1;
+}
+
+.task-container .task-actions {
+    margin-left: auto;
 }
 
 .row {
@@ -169,6 +187,7 @@ h2{
     background: none;
     border: none;
     cursor: pointer;
+    
 }
 
 .dropdown-menu {
@@ -229,6 +248,21 @@ h2{
     background-color: white; /* フォームの背景色 */
     padding: 20px;
     border-radius: 5px;
+}
+
+#sort-priority-button,
+#sort-due-button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+#sort-priority-button:hover,
+#sort-due-button:hover {
+    background-color: #e0e0e0;
 }
 
 /* レスポンシブ対応 */
