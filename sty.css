@@ -137,14 +137,14 @@ h2{
     padding: 20px;
 }
 .balloon {
-    width: 100%;
-    margin-bottom: 20px; /* 吹き出しとフォームの間隔 */
+    width: 800px;
+    margin-bottom: 20px;
     overflow: hidden;
 }
 
 .balloon .faceicon {
     float: left;
-    margin-right: -90px;
+    margin-right: -150px;
     width: 80px;
 }
 
@@ -162,8 +162,8 @@ h2{
 .says {
     display: inline-block;
     position: relative;
-    margin: 5px 0 0 105px;
-    padding: 17px 13px;
+    margin: 20px 0 0 105px;
+    padding: 17px 20px;
     border-radius: 12px;
     background: rgb(222, 187, 187);
 }
